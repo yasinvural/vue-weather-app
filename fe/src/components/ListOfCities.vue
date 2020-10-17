@@ -1,18 +1,24 @@
 <template>
   <div class="list-of-cities">
     <select @change="citySelected">
-      <option v-for="city in cities" :key="city"> {{ city }}</option>
+      <option v-for="city in cities" :key="city.id"> {{ city.name }}</option>
     </select>
   </div>
 </template>
 
 <script>
+import { get } from "../services/baseService";
+
 export default {
   name: "ListOfCities",
   data() {
     return {
-      cities: ["Tokyo", "New York", "Ankara", "Dublin", "Londra", "Stockholm"],
+      cities: [],
     };
+  },
+  async mounted() {
+    const citiesData = await get("api/cities");
+    this.cities = citiesData.data;
   },
   methods: {
     citySelected(event) {

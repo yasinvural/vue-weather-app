@@ -1,5 +1,22 @@
 <template>
-  <div>Weather App</div>
+  <div>
+    <Header />
+    <Home />
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<script>
+import Home from "./components/Home";
+import Header from "./components/Header";
+
+export default {
+  name: "App",
+  components: {
+    Header,
+    Home,
+  },
+};
+</script>
+<style lang="scss">
+
+</style>

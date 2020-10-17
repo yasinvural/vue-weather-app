@@ -1,17 +1,38 @@
 <template>
   <div class="weather-detail">
-    <div class="name">Tokyo</div>
-    <div class="value">23</div>
-    <img class="img" src="" alt="" />
-    <div class="desc">Clear Sky</div>
+    <div class="name">{{ name }}</div>
+    <div class="value">{{ value }} °C</div>
+    <img class="img" :src="image" alt="" />
+    <div class="desc">{{ desc }}</div>
   </div>
 </template>
 
 <script>
+import sunny from "../assets/sunny.png";
+import rainy from "../assets/rainy.png";
+import cloudy from "../assets/cloudy.png";
+
 export default {
   name: "WeatherDetail",
   data() {
-    return {};
+    return {
+      name: "Tokyo",
+      value: "23",
+      img: "sunny",
+      desc: "Clear Sky",
+    };
+  },
+  computed: {
+    image() {
+      if (this.img === "sunny") {
+        return sunny;
+      } else if (this.img === "rainy") {
+        return rainy;
+      } else if (this.img === "cloudy") {
+        return cloudy;
+      }
+      return null;
+    },
   },
   methods: {},
 };
@@ -21,8 +42,8 @@ export default {
 .weather-detail {
   background-color: #555374;
   margin: 16px 0;
+  padding: 16px 0;
   width: 100%;
-  height: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -36,7 +57,7 @@ export default {
 
   .img {
     object-fit: contain;
-    height: 50px;
+    height: 100px;
   }
 
   .desc {

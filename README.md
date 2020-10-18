@@ -7,3 +7,9 @@
 3) cd be &&  npm install &&  npm run start (It will install backend project dependencies and run the backend project)
 4) cd .. cd fe && npm install && npm run serve ( It will install frontend project dependencies and run the frontend project)
 5) Open localhost:8080 on your browser.
+
+## Screenshots
+
+![](./fe/screenshots/screen1.png)
+![](./fe/screenshots/screen2.png)
+![](./fe/screenshots/screen3.png)

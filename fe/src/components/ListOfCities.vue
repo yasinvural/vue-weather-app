@@ -7,23 +7,33 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from "vuex";
 import { get } from "../services/baseService";
 
 export default {
   name: "ListOfCities",
-  data() {
-    return {
-      cities: [],
-    };
-  },
   async mounted() {
     const citiesData = await get("api/cities");
-    this.cities = citiesData.data;
+    this.setCities(citiesData.data);
+    const { id } = citiesData.data[0];
+    const weatherData = await get(`api/weather?id=${id}`);
+    this.setWeatherDetail(weatherData.data);
   },
   methods: {
-    citySelected(event) {
-      console.log(event.target.value);
+    ...mapActions(["setCities", "setWeatherDetail"]),
+    async citySelected(event) {
+      const cityObj = this.cities.find(
+        (city) => city.name === event.target.value
+      );
+      const { id } = cityObj;
+      const weatherData = await get(`api/weather?id=${id}`);
+      this.setWeatherDetail(weatherData.data);
     },
+  },
+  computed: {
+    ...mapGetters({
+      cities: "getCities",
+    }),
   },
 };
 </script>

@@ -1,40 +1,36 @@
 <template>
-  <div class="weather-detail">
-    <div class="name">{{ name }}</div>
-    <div class="value">{{ value }} °C</div>
+  <div class="weather-detail" v-if="weatherDetail">
+    <div class="name">{{ weatherDetail.name }}</div>
+    <div class="value">{{ weatherDetail.value }} °C</div>
     <img class="img" :src="image" alt="" />
-    <div class="desc">{{ desc }}</div>
+    <div class="desc">{{ weatherDetail.desc }}</div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import sunny from "../assets/sunny.png";
 import rainy from "../assets/rainy.png";
 import cloudy from "../assets/cloudy.png";
 
 export default {
   name: "WeatherDetail",
-  data() {
-    return {
-      name: "Tokyo",
-      value: "23",
-      img: "sunny",
-      desc: "Clear Sky",
-    };
-  },
   computed: {
+    ...mapGetters({
+      weatherDetail: "getWeatherDetail",
+    }),
     image() {
-      if (this.img === "sunny") {
+      const { img } = this.weatherDetail;
+      if (img === "sunny") {
         return sunny;
-      } else if (this.img === "rainy") {
+      } else if (img === "rainy") {
         return rainy;
-      } else if (this.img === "cloudy") {
+      } else if (img === "cloudy") {
         return cloudy;
       }
       return null;
     },
   },
-  methods: {},
 };
 </script>
 
